@@ -1,0 +1,75 @@
+server:
+  type: default
+  applicationContextPath: /mysql-db
+  adminContextPath: /admin
+  applicationConnectors:
+    - type: http
+      port: 9090
+  adminConnectors:
+    - type: http
+      port: 9091
+  requestLog:
+      appenders:
+        - type: file
+          currentLogFilename: /var/log/mysql-db-experiments/access.log
+          threshold: ALL
+          archive: true
+          archivedLogFilenamePattern: /var/log/mysql-db-experiments/access-%d{yyyy-MM-dd-HH}.log.gz
+          archivedFileCount: 24
+          timeZone: IST
+
+mysql_db_1:
+  driverClass: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/mysql_db_1
+  user: root
+  password:
+  initialSize: 100
+  properties:
+    charSet: UTF-8
+    hibernate.generate_statistics: false
+    hibernate.session.events.log: false
+    hibernate.show_sql: false
+    hibernate.format_sql: true
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 10s
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  initialSize: 8
+  # the minimum number of connections to keep open
+  minSize: 8
+  # the maximum number of connections to keep open
+  maxSize: 200
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: true
+  # how long a connection must be held before it can be validated
+  validationInterval: 5s
+  # the maximum lifetime of an idle connection
+  minIdleTime: 1 minute
+
+mysql_db_2:
+  driverClass: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/mysql_db_2
+  user: root
+  password:
+  initialSize: 100
+  properties:
+    charSet: UTF-8
+    hibernate.generate_statistics: false
+    hibernate.session.events.log: false
+    hibernate.show_sql: false
+    hibernate.format_sql: true
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 10s
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  initialSize: 8
+  # the minimum number of connections to keep open
+  minSize: 8
+  # the maximum number of connections to keep open
+  maxSize: 200
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: true
+  # how long a connection must be held before it can be validated
+  validationInterval: 5s
+  # the maximum lifetime of an idle connection
+  minIdleTime: 1 minute
